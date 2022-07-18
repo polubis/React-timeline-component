@@ -1,9 +1,0 @@
-@import './mixins';
-
-body {
-  background: $surface;
-  color: $white;
-  font-family: $fontPrimary;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-}

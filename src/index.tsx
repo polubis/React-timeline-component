@@ -9,7 +9,7 @@ import "styles/index.scss";
 
 WebFont.load({
   google: {
-    families: ["sans-serif", "Montserrat:300,400,500,700&display=swap"],
+    families: ["sans-serif", "Lexend:300,400,500,700&display=swap"],
   },
 });
 

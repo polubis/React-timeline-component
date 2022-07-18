@@ -1,29 +1,28 @@
-import { ChangePassword, Register } from "containers";
-import { Tabs } from "ui";
-import { Fragment, useState } from "react";
-
+import { useState } from "react";
+import { DataSetsKeys, DATA_SETS } from "timeline/mocks";
+import { TimelineProps } from "timeline/models";
+import { Timeline } from "timeline/Timeline";
 import css from "./App.module.scss";
 
-const EXAMPLES = ["Register", "Change password"];
-
 function App() {
-  const [activeExample, setActiveExample] = useState(EXAMPLES[0]);
+  const [current, setCurrent] = useState(DATA_SETS.BIG);
+
+  const handleItemClick: TimelineProps["onItemClick"] = (group): void => {
+    console.log(group);
+  };
 
   return (
-    <div className={css.layout}>
-      <Tabs
-        className={css.tabs}
-        active={activeExample}
-        onClick={setActiveExample}
-      >
-        {EXAMPLES.map((example) => (
-          <Fragment key={example}>{example}</Fragment>
-        ))}
-      </Tabs>
+    <>
+      <Timeline data={current.data} onItemClick={handleItemClick} />
 
-      {activeExample === EXAMPLES[0] && <Register />}
-      {activeExample === EXAMPLES[1] && <ChangePassword />}
-    </div>
+      <div className={css.footer}>
+        {(Object.keys(DATA_SETS) as DataSetsKeys[]).map((key) => (
+          <button key={key} onClick={() => setCurrent(DATA_SETS[key])}>
+            {DATA_SETS[key].label}
+          </button>
+        ))}
+      </div>
+    </>
   );
 }
 

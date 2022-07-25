@@ -1,19 +1,27 @@
-import { ReactElement } from "react";
-import { TimelineSetup } from "timeline/models";
-import css from "./Container.module.scss";
+import { ContainerProps, TimelineSetup } from "timeline/models";
 
-export interface ContainerProps {
-  padding: TimelineSetup["padding"];
-  children: ReactElement;
-  height: number;
-}
+const getHalfHeight = (setup: TimelineSetup, value: number): number => {
+  let total = 0;
 
-export const Container = ({ children, height, padding }: ContainerProps) => {
+  if (value > 0) {
+    total += setup.marker.size;
+    total += setup.group.padding * 2;
+    total += setup.item.height * value;
+    total += setup.item.gap * (value - 1);
+  }
+
+  return total;
+};
+
+export const Container = ({ children, setup, count }: ContainerProps) => {
+  const height =
+    getHalfHeight(setup, count.top) + // Top space
+    setup.marker.size + // Mid space
+    getHalfHeight(setup, count.bottom); // Bottom space
+
   return (
-    <div className={css.container} style={{ padding }}>
-      <div className={css.content} style={{ height }}>
-        {children}
-      </div>
+    <div style={{ padding: setup.padding, overflowX: "auto" }}>
+      <div style={{ height, position: "relative" }}>{children}</div>
     </div>
   );
 };

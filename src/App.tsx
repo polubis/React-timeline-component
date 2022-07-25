@@ -1,23 +1,30 @@
 import { useState } from "react";
-import { DataSetsKeys, DATA_SETS } from "timeline/mocks";
-import { TimelineProps } from "timeline/models";
-import { Timeline } from "timeline/Timeline";
-import css from "./App.module.scss";
+import { Timeline, DataSetsKeys, DATA_SETS } from "./timeline";
 
 function App() {
   const [current, setCurrent] = useState(DATA_SETS.BIG);
 
-  const handleItemClick: TimelineProps["onItemClick"] = (group): void => {
-    console.log(group);
-  };
-
   return (
     <>
-      <Timeline data={current.data} onItemClick={handleItemClick} />
+      <Timeline data={current.data} />
 
-      <div className={css.footer}>
+      <div
+        style={{
+          display: "flex",
+          padding: "24px",
+        }}
+      >
         {(Object.keys(DATA_SETS) as DataSetsKeys[]).map((key) => (
-          <button key={key} onClick={() => setCurrent(DATA_SETS[key])}>
+          <button
+            key={key}
+            style={{
+              marginRight: "24px",
+              padding: "12px",
+              cursor: "pointer",
+              borderRadius: "4px",
+            }}
+            onClick={() => setCurrent(DATA_SETS[key])}
+          >
             {DATA_SETS[key].label}
           </button>
         ))}

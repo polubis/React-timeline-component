@@ -1,15 +1,14 @@
 import { Fragment } from "react";
+import { TimelineProps } from "timeline";
 import {
   Container,
   EdgeMarker,
   LineX,
   LineY,
   MidMarker,
-  GroupItem,
-} from "./components";
-import { TimelineProps } from "./models";
-import { DEFAULT_SETUP } from "./setup";
-import { useCount } from "./utils";
+} from "timeline/components";
+import { DEFAULT_SETUP } from "timeline/setup";
+import { useCount } from "timeline/utils";
 
 export const Timeline = ({ data, setup = DEFAULT_SETUP }: TimelineProps) => {
   const count = useCount(data);
@@ -27,17 +26,6 @@ export const Timeline = ({ data, setup = DEFAULT_SETUP }: TimelineProps) => {
                   <LineY groupIdx={groupIdx} group={group} setup={setup} />
 
                   <EdgeMarker groupIdx={groupIdx} group={group} setup={setup} />
-
-                  {group.items.map((item, itemIdx) => (
-                    <GroupItem
-                      key={itemIdx}
-                      itemIdx={itemIdx}
-                      item={item}
-                      group={group}
-                      groupIdx={groupIdx}
-                      setup={setup}
-                    />
-                  ))}
                 </>
               )}
             </Fragment>

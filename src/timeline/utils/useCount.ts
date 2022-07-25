@@ -1,11 +1,11 @@
-import { TimelineData, ItemsCount } from "../timeline/models";
+import { TimelineData, TimelineItemsCount } from "timeline/models";
 
-export const countItems = (data: TimelineData): ItemsCount => {
-  const { top, bottom } = data.reduce(
+export const useCount = (data: TimelineData): TimelineItemsCount => {
+  const { top, bottom } = data.reduce<TimelineItemsCount>(
     (acc, group) => {
       const itemsLength = group.items.length;
 
-      if (group.location === "top") {
+      if (group.top) {
         acc.top = itemsLength > acc.top ? itemsLength : acc.top;
       } else {
         acc.bottom = itemsLength > acc.bottom ? itemsLength : acc.bottom;
@@ -13,7 +13,7 @@ export const countItems = (data: TimelineData): ItemsCount => {
 
       return acc;
     },
-    { top: 0, bottom: 0 }
+    { top: 0, bottom: 0 } as TimelineItemsCount
   );
 
   return { top, bottom };

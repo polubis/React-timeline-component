@@ -1,5 +1,5 @@
 import { addDays } from "date-fns";
-import { TimelineData, TimelineGroupItem } from "timeline/models";
+import { TimelineData, TimelineGroupItem } from "../timeline";
 
 interface GeneratorConfig {
   groupsCount: number;
@@ -55,49 +55,4 @@ export const DATA_SETS: DataSet = {
       title: (j) => `This is title with idx: ${j}`,
     }),
   },
-  SMALL: {
-    label: "Small amount of data",
-    data: generate({
-      groupsCount: 20,
-      groupItemsCount: (i) => i % 3,
-      date: (i) => addDays(TODAY, i + 1),
-      top: (i) => i % 4 === 0,
-      displayed: (i) => i % 4 === 0 || i % 5 === 0,
-      blank: () => false,
-      empty: () => false,
-      title: (j) => `This is title with idx: ${j}`,
-    }),
-  },
-  BOTTOM_ONLY: {
-    label: "Data visible on bottom only",
-    data: generate({
-      groupsCount: 2,
-      groupItemsCount: (i) => (i === 0 ? 0 : 3),
-      date: (i) => (i === 0 ? TODAY : addDays(TODAY, 5)),
-      top: () => false,
-      displayed: () => true,
-      blank: () => false,
-      empty: () => false,
-      title: () => "TDD in React ddd",
-    }),
-  },
-  TOP_ONLY: {
-    label: "Data visible on top only",
-    data: generate({
-      groupsCount: 2,
-      groupItemsCount: (i) => (i === 0 ? 4 : 0),
-      date: (i) => (i === 0 ? TODAY : addDays(TODAY, 5)),
-      top: () => true,
-      displayed: () => true,
-      blank: () => false,
-      empty: () => false,
-      title: () => "TDD in React ddd",
-    }),
-  },
-  EMPTY: {
-    label: "Any data available",
-    data: [],
-  },
 };
-
-export type DataSetsKeys = keyof typeof DATA_SETS;
